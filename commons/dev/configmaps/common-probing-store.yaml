@@ -8,4 +8,4 @@ data:
   DB_PORT: "5432"
   DB_NAME: "interop_probing_operational_dev"
   DB_USE_SSL: "true"
-  DB_SCHEMA: ""
+  DB_SCHEMA: "dev_probing"
