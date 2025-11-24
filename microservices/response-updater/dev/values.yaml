@@ -1,0 +1,16 @@
+name: "probing-response-updater"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-response-updater-dev"
+
+configmap:
+  INTEROP_PROBING_RESPONSE_UPDATER_NAME: "pagopa-interop-probing-response-updater"
+  API_OPERATIONS_BASEURL: "http://probing-eservice-operations.{{.Values.namespace}}:8080"
+  SQS_ENDPOINT_POLL_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-response-received-dev"
+  SQS_LONG_POLL_WAIT_TIME_SECONDS: "3"
+
+deployment:
+  env:
+  envFromConfigmaps:
+  envFromSecrets:
+  envFromFieldRef:

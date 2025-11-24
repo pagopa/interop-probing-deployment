@@ -6,9 +6,12 @@ serviceAccount:
 service:
   create: true
   portName: http
-  containerPort: 3000
+  containerPort: 8080
 
 configmap:
+  INTEROP_PROBING_OPERATIONS_APP_NAME: "pagopa-interop-probing-eservice-operations"
+  TOLERANCE_MULTIPLIER_IN_MINUTES: "3"
+  POLLING_FREQUENCY_THRESHOLD: "3"
 
 deployment:
   flywayInitContainer:
@@ -32,10 +35,7 @@ deployment:
 
   env:
     HOST: "0.0.0.0"
-    PORT: "3000"
-    INTEROP_PROBING_OPERATIONS_APP_NAME: "pagopa-interop-probing-eservice-operations"
-    TOLERANCE_MULTIPLIER_IN_MINUTES: "3"
-    POLLING_FREQUENCY_THRESHOLD: "3"
+    PORT: "8080"
   envFromConfigmaps:
     DB_HOST: "common-probing-store.DB_HOST"
     DB_PORT: "common-probing-store.DB_PORT"
