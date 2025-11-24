@@ -12,7 +12,7 @@ deployment:
   env:
   envFromConfigmaps:
     KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
-    KAFKA_TOPIC: "common-kafka.CATALOG_TOPIC"
+    KAFKA_TOPIC: "common-kafka.TENANT_TOPIC"
   envFromSecrets:
   envFromFieldRef:
     KAFKA_CLIENT_ID: "metadata.name"
