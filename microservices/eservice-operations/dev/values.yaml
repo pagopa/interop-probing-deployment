@@ -30,8 +30,8 @@ deployment:
       DB_PORT: "common-probing-store.DB_PORT"
       DB_NAME: "common-probing-store.DB_NAME"
     envFromSecrets:
-      FLYWAY_USER: "probing-operational-db-flyway-user-dev.username"
-      FLYWAY_PASSWORD: "probing-operational-db-flyway-user-dev.password"
+      FLYWAY_USER: "dev-probing-operational-db-flyway-user.username"
+      FLYWAY_PASSWORD: "dev-probing-operational-db-flyway-user.password"
 
   env:
     HOST: "0.0.0.0"
@@ -43,5 +43,5 @@ deployment:
     DB_SSL: "common-probing-store.DB_USE_SSL"
     DB_SCHEMA: "common-probing-store.DB_SCHEMA"
   envFromSecrets:
-    DB_USERNAME: "probing-operational-db-eservice-operations-user-dev.username"
-    DB_PASSWORD: "probing-operational-db-eservice-operations-user-dev.password"
+    DB_USERNAME: "dev-probing-operational-db-eservice-operations-user.username"
+    DB_PASSWORD: "dev-probing-operational-db-eservice-operations-user.password"

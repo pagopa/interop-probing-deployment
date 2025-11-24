@@ -16,4 +16,4 @@ deployment:
     INFLUX_BUCKET: "common-probing-analytics.INFLUX_INSTANCE_BUCKET"
     INFLUX_PRECISION: "common-probing-analytics.INFLUX_PRECISION"
   envFromSecrets:
-    INFLUX_TOKEN: "probing-analytics-db-telemetry-writer-user-dev.token"
+    INFLUX_TOKEN: "dev-probing-analytics-db-telemetry-writer-user.token"

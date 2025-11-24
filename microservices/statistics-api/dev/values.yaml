@@ -22,4 +22,9 @@ deployment:
     HOST: "0.0.0.0"
     PORT: "8080"
   envFromConfigmaps:
+    INFLUX_DB_URL: "common-probing-analytics.INFLUX_INSTANCE_ENDPOINT"
+    INFLUX_ORG: "common-probing-analytics.INFLUX_INSTANCE_ORG"
+    INFLUX_BUCKET: "common-probing-analytics.INFLUX_INSTANCE_BUCKET"
+    INFLUX_PRECISION: "common-probing-analytics.INFLUX_PRECISION"
   envFromSecrets:
+    INFLUX_TOKEN: "dev-probing-analytics-db-statistics-api-user.token"
