@@ -13,6 +13,11 @@ on:
         required: true
         default: true
         type: boolean
+      deploy_frontend:
+        description: 'Deploy frontend and invalidate CloudFront distribution cache'
+        required: true
+        default: true
+        type: boolean
       run_tf_apply_monitoring_workflow:
         description: 'Run tf_apply_monitoring workflow'
         required: true
@@ -188,6 +193,46 @@ jobs:
     with:
       environment: ${{ inputs.environment }}
       infra_commons_tag: ${{ needs.initChecks.outputs.infra_commons_tag_computed }}
+
+  deploy_frontend:
+    needs: [ deploy ]
+    if: ${{ inputs.deploy_frontend }}
+    runs-on: ubuntu-22.04
+    environment: ${{ inputs.environment }}
+    steps:
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+      with:
+        aws-region: ${{ vars.AWS_REGION }}
+        role-to-assume: ${{ secrets.TERRAFORM_IAM_ROLE_ARN }}
+        role-session-name: interop-probing-deploy-frontend
+
+    - name: Download GitHub Release
+      uses: actions/download-release-asset@v2
+      with:
+        repository: ${{ vars.FRONTEND_RELEASE_REPOSITORY }}
+        tag: ${{ vars.FRONTEND_RELEASE_TAG }}
+        name: probing-frontend.zip
+        asset_name: probing-frontend.zip
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Unzip release
+      run: |
+        mkdir -p probing-frontend
+        unzip probing-frontend.zip -d probing-frontend
+
+    - name: Sync files to S3
+      run: |
+        aws s3 sync probing-frontend/ s3://${{ vars.AWS_S3_BUCKET }}/ --delete
+
+    - name: Invalidate CloudFront Cache
+      run: |
+        set -euo pipefail
+
+        aws cloudfront create-invalidation \
+          --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} \
+          --paths "${{ vars.CLOUDFRONT_INVALIDATION_PATHS }}"  #space separated
 
   delete_runner:
     name: Delete Self-Hosted Runner
