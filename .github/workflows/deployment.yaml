@@ -215,14 +215,14 @@ jobs:
       run: |
         set -euo pipefail
 
-        FRONTEND_VERSION=$(yq e '.packages."'"${FRONTEND_PACKAGE_NAME}"'"' packages/${{ inputs.environment }}/packages.yaml)
-        echo "frontend_version=$FRONTEND_VERSION" >> $GITHUB_OUTPUT
+        FRONTEND_PACKAGE_VERSION=$(yq e '.packages."'"${FRONTEND_PACKAGE_NAME}"'"' packages/${{ inputs.environment }}/packages.yaml)
+        echo "frontend_package_version=$FRONTEND_PACKAGE_VERSION" >> $GITHUB_OUTPUT
 
     - name: Download frontend package
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         FRONTEND_PACKAGE_NAME: ${{ vars.PACKAGE_NAME }}
-        FRONTEND_PACKAGE_VERSION: ${{ steps.get_frontend_version.outputs.frontend_version }}
+        FRONTEND_PACKAGE_VERSION: ${{ steps.get_frontend_version.outputs.frontend_package_version }}
       run: |
         set -euo pipefail
 
