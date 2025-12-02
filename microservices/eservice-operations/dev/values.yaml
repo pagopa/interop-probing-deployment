@@ -40,7 +40,7 @@ deployment:
     DB_HOST: "common-probing-store.DB_HOST"
     DB_PORT: "common-probing-store.DB_PORT"
     DB_NAME: "common-probing-store.DB_NAME"
-    DB_SSL: "common-probing-store.DB_USE_SSL"
+    DB_USE_SSL: "common-probing-store.DB_USE_SSL"
     DB_SCHEMA: "common-probing-store.DB_SCHEMA"
   envFromSecrets:
     DB_USERNAME: "dev-probing-operational-db-eservice-operations-user.username"
