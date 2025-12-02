@@ -16,6 +16,7 @@ configmap:
   GRAPH_FAILURE_TOLERANCE: "4"
   GRAPH_MAX_MONTHS: "3"
   CORS_ORIGIN_ALLOWED: "*"
+  INTEROP_PROBING_STATISTICS_APP_NAME: "statistics-api"
 
 deployment:
   env:
