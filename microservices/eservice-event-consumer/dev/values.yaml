@@ -1,4 +1,4 @@
-name: "probing-eservice-event-consumer"
+name: "probing-be-eservice-event-consumer"
 
 serviceAccount:
   roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-eservice-event-consumer-dev"
@@ -9,7 +9,6 @@ configmap:
   KAFKA_GROUP_ID: "{{.Values.namespace}}-eservice-event-consumer"
 
 deployment:
-  env:
   envFromConfigmaps:
     KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
     KAFKA_TOPIC: "common-kafka.CATALOG_TOPIC"

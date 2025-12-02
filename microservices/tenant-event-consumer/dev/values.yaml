@@ -1,4 +1,4 @@
-name: "probing-tenant-event-consumer"
+name: "probing-be-tenant-event-consumer"
 
 serviceAccount:
   roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-tenant-event-consumer-dev"
@@ -9,7 +9,6 @@ configmap:
   KAFKA_GROUP_ID: "{{.Values.namespace}}-tenant-event-consumer"
 
 deployment:
-  env:
   envFromConfigmaps:
     KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
     KAFKA_TOPIC: "common-kafka.TENANT_TOPIC"

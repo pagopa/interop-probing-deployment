@@ -1,4 +1,4 @@
-name: "probing-api"
+name: "probing-be-api"
 
 serviceAccount:
   roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-api-dev"

@@ -1,4 +1,4 @@
-name: "probing-statistics-api"
+name: "probing-be-statistics-api"
 
 serviceAccount:
   roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-statistics-api-dev"
