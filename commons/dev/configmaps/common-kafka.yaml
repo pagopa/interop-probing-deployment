@@ -4,6 +4,6 @@ metadata:
   name: common-kafka
   namespace: dev
 data:
-  KAFKA_BROKERS: "b-3.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:9098,b-2.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:9098,b-1.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:9098"
-  CATALOG_TOPIC: "event-store.dev_catalog.events"
-  TENANT_TOPIC: "event-store.dev_tenant.events"
+  KAFKA_BROKERS: "b-2.iam.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:14002,b-1.iam.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:14001,b-3.iam.interopplatformevents.2doelu.c2.kafka.eu-south-1.amazonaws.com:14003"
+  CATALOG_TOPIC: "outbound.dev_catalog.events"
+  TENANT_TOPIC: "outbound.dev_tenant.events"
