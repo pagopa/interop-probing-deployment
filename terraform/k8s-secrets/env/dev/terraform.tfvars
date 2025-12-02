@@ -9,3 +9,5 @@ tags = {
 }
 
 eks_cluster_name = "probing-eks-cluster-dev"
+
+k8s_namespace = "dev"

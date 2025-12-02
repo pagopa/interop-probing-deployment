@@ -13,3 +13,5 @@ eks_cluster_name = "probing-eks-cluster-dev"
 sns_topic_name = "probing-platform-alarms-dev"
 
 cloudwatch_log_group_name = "/aws/eks/probing-eks-cluster-dev/application"
+
+k8s_namespace = "dev"
