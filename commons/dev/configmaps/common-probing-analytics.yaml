@@ -4,7 +4,7 @@ metadata:
   name: common-probing-analytics
   namespace: dev
 data:
-  INFLUX_INSTANCE_ENDPOINT: "iyyprotlvq-p2jepkxlcngatz.timestream-influxdb.eu-south-1.on.aws"
+  INFLUX_INSTANCE_ENDPOINT: "https://iyyprotlvq-p2jepkxlcngatz.timestream-influxdb.eu-south-1.on.aws:8086"
   INFLUX_INSTANCE_ORG: "probing-analytics-dev"
   INFLUX_INSTANCE_BUCKET: "interop_probing_operational_dev"
   INFLUX_PRECISION: "ms"

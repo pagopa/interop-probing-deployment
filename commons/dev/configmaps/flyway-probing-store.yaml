@@ -10,7 +10,7 @@ data:
     CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
     GRANT USAGE ON SCHEMA "${NAMESPACE}_probing" TO
-      "probing_eservice_operations_user_${NAMESPACE}";
+      "${NAMESPACE}_eservice_operations_user";
 
     CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".tenants (
       id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -18,7 +18,7 @@ data:
       tenant_name VARCHAR(2048)
     );
 
-    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".tenants TO "probing_eservice_operations_user_${NAMESPACE}";
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".tenants TO "${NAMESPACE}_eservice_operations_user";
 
     CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservices (
       id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -39,14 +39,14 @@ data:
       CONSTRAINT eservices_eservice_version_unique UNIQUE (eservice_id, version_id)
     );
 
-    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservices TO "probing_eservice_operations_user_${NAMESPACE}";
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservices TO "${NAMESPACE}_eservice_operations_user";
 
     CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservice_probing_requests (
       eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
       last_request TIMESTAMP WITH TIME ZONE NOT NULL
     );
 
-    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_requests TO "probing_eservice_operations_user_${NAMESPACE}";
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_requests TO "${NAMESPACE}_eservice_operations_user";
 
     CREATE TABLE IF NOT EXISTS  "${NAMESPACE}_probing".eservice_probing_responses (
       eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
@@ -54,7 +54,7 @@ data:
       status VARCHAR(2) NOT NULL
     );
 
-    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "probing_eservice_operations_user_${NAMESPACE}";
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "${NAMESPACE}_eservice_operations_user";
 
     CREATE
     OR REPLACE VIEW "${NAMESPACE}_probing".eservice_view AS
