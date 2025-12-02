@@ -6,7 +6,7 @@ serviceAccount:
 configmap:
   APPLICATION_NAME: "pagopa-interop-probing-tenant-event-consumer"
   API_OPERATIONS_BASEURL: "http://probing-eservice-operations.{{.Values.namespace}}:8080"
-  KAFKA_GROUP_ID: "{{.Values.namespace}}-tenant-event-consumer"
+  KAFKA_GROUP_ID: "probing-{{.Values.namespace}}-tenant-event-consumer"
 
 deployment:
   envFromConfigmaps:
