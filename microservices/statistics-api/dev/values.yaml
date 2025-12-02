@@ -28,3 +28,16 @@ deployment:
     INFLUX_PRECISION: "common-probing-analytics.INFLUX_PRECISION"
   envFromSecrets:
     INFLUX_TOKEN: "dev-probing-analytics-db-statistics-api-user.token"
+
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
+  readinessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5

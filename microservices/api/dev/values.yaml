@@ -23,3 +23,17 @@ deployment:
     PORT: "8080"
   envFromConfigmaps:
   envFromSecrets:
+
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
+  readinessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
+
