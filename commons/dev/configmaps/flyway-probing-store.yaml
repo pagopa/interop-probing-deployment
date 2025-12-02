@@ -18,7 +18,11 @@ data:
       tenant_name VARCHAR(2048)
     );
 
+<<<<<<< HEAD
     GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".tenants TO "${NAMESPACE}_eservice_operations_user";
+=======
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".tenants TO "${NAMESPACE}_probing_eservice_operations_user";
+>>>>>>> main
 
     CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservices (
       id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -39,14 +43,22 @@ data:
       CONSTRAINT eservices_eservice_version_unique UNIQUE (eservice_id, version_id)
     );
 
+<<<<<<< HEAD
     GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservices TO "${NAMESPACE}_eservice_operations_user";
+=======
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservices TO "${NAMESPACE}_probing_eservice_operations_user";
+>>>>>>> main
 
     CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservice_probing_requests (
       eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
       last_request TIMESTAMP WITH TIME ZONE NOT NULL
     );
 
+<<<<<<< HEAD
     GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_requests TO "${NAMESPACE}_eservice_operations_user";
+=======
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_requests TO "${NAMESPACE}_probing_eservice_operations_user";
+>>>>>>> main
 
     CREATE TABLE IF NOT EXISTS  "${NAMESPACE}_probing".eservice_probing_responses (
       eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
@@ -54,7 +66,11 @@ data:
       status VARCHAR(2) NOT NULL
     );
 
+<<<<<<< HEAD
     GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "${NAMESPACE}_eservice_operations_user";
+=======
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "${NAMESPACE}_probing_eservice_operations_user";
+>>>>>>> main
 
     CREATE
     OR REPLACE VIEW "${NAMESPACE}_probing".eservice_view AS
