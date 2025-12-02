@@ -2,7 +2,7 @@ images:
   microservices:
     api:
       tag: "develop"
-    statistic-api:
+    statistics-api:
       tag: "develop"
     eservice-event-consumer:
       tag: "develop"
