@@ -13,7 +13,7 @@ service:
 
 configmap:
   INTEROP_PROBING_API_APP_NAME: "pagopa-interop-probing-api"
-  API_OPERATIONS_BASEURL: "http://probing-eservice-operations.{{.Values.namespace}}:8080"
+  API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
   TOLERANCE_MULTIPLIER_IN_MINUTES: "3"
   CORS_ORIGIN_ALLOWED: "*"
 

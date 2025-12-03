@@ -5,7 +5,7 @@ serviceAccount:
 
 configmap:
   INTEROP_PROBING_SCHEDULER_NAME: "pagopa-interop-probing-scheduler"
-  API_OPERATIONS_BASEURL: "http://probing-eservice-operations.{{.Values.namespace}}:8080"
+  API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
   SQS_ENDPOINT_POLL_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-eservice-operations-poll-queue-dev"
   SCHEDULER_LIMIT: "10"
   SCHEDULER_CRON_EXPRESSION: "59 59 23 31 12 1"
