@@ -101,3 +101,6 @@ data:
     CREATE INDEX IF NOT EXISTS probing_responses_received_idx ON "${NAMESPACE}_probing".eservice_probing_responses (response_received);
 
     CREATE INDEX IF NOT EXISTS eservices_name_numeric_idx ON "${NAMESPACE}_probing".eservices ((split_part(eservice_name, ' ', 2) :: int));
+
+  V1.1__grant_select_on_view_to_eservice_operations_user.sql: |-
+    GRANT SELECT ON "${NAMESPACE}_probing".eservice_view TO "${NAMESPACE}_eservice_operations_user";
