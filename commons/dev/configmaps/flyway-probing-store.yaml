@@ -104,3 +104,6 @@ data:
 
   V1.1__grant_select_on_view_to_eservice_operations_user.sql: |-
     GRANT SELECT ON "${NAMESPACE}_probing".eservice_view TO "${NAMESPACE}_eservice_operations_user";
+  
+  V1.2__drop_numeric_eservice_name_index.sql: |-
+    DROP INDEX IF EXISTS "${NAMESPACE}_probing".eservices_name_numeric_idx;
