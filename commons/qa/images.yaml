@@ -1,0 +1,21 @@
+images:
+  microservices:
+    api:
+      tag: "develop"
+    statistics-api:
+      tag: "develop"
+    eservice-event-consumer:
+      tag: "develop"
+    tenant-event-consumer:
+      tag: "develop"
+    eservice-operations:
+      tag: "develop"
+    scheduler:
+      tag: "develop"
+    caller:
+      tag: "develop"
+    response-updater:
+      tag: "develop"
+    telemetry-writer:
+      tag: "develop"
+  jobs:
