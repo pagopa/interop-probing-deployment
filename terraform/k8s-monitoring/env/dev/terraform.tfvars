@@ -1,6 +1,5 @@
 aws_region = "eu-south-1"
 env        = "dev"
-stage      = "dev"
 
 tags = {
   CreatedBy   = "Terraform"
