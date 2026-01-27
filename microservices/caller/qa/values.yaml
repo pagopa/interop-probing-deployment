@@ -1,0 +1,15 @@
+name: "probing-be-caller"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-caller-{{.Values.local.env}}"
+
+configmap:
+  INTEROP_PROBING_CALLER_NAME: "pagopa-interop-probing-caller"
+  SQS_ENDPOINT_POLL_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-poll-{{.Values.local.env}}"
+  SQS_ENDPOINT_POLL_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-response-received-{{.Values.local.env}}"
+  SQS_ENDPOINT_TELEMETRY_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-telemetry-record-{{.Values.local.env}}"
+  SQS_LONG_POLL_WAIT_TIME_SECONDS: "3"
+  JWT_PAYLOAD_EXPIRE_TIME_IN_SEC: "1"
+  JWT_PAYLOAD_ISSUER: "probing-caller-issuer"
+  JWT_PAYLOAD_SUBJECT: "probing-caller-subject"
+  JWT_PAYLOAD_KID_KMS: "222f2604-e8f4-4dd5-8bff-978836b792d5"
