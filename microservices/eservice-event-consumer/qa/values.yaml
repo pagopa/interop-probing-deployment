@@ -9,6 +9,7 @@ configmap:
   KAFKA_GROUP_ID: "probing-{{.Values.namespace}}-eservice-event-consumer"
 
 deployment:
+  replicas: 0
   envFromConfigmaps:
     KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
     KAFKA_TOPIC: "common-kafka.CATALOG_TOPIC"
