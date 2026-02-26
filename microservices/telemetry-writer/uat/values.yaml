@@ -5,7 +5,7 @@ serviceAccount:
 
 configmap:
   INTEROP_PROBING_TELEMETRY_WRITER_NAME: "pagopa-interop-probing-telemetry-writer"
-  SQS_ENDPOINT_TELEMETRY_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-telemetry-record-{{.Values.local.env}}"
+  SQS_ENDPOINT_TELEMETRY_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/010158505074/probing-telemetry-record-{{.Values.local.env}}"
   SQS_LONG_POLL_WAIT_TIME_SECONDS: "3"
 
 deployment:
