@@ -1,0 +1,37 @@
+namespace: "prod"
+techStack: "nodejs"
+
+deployment:
+  enableRolloutAnnotations: true
+  replicas: 1
+  env:
+    LOG_LEVEL: "info"
+  image:
+    repositoryPrefix: "774300547186.dkr.ecr.eu-south-1.amazonaws.com"
+    imagePullPolicy: Always
+    tag: $IMAGE_TAG_PLACEHOLDER
+    digest: $IMAGE_DIGEST_PLACEHOLDER
+  resources:
+    requests:
+      cpu: "1000m"
+      memory: "2Gi"
+    limits:
+      cpu: "1000m"
+      memory: "2Gi"
+
+local:
+  awsAccountId: "774300547186"
+  env: "prod"
+
+autoscaling:
+  keda:
+    create: true
+    minReplicaCount: 0 # this must be 0 when using 'cron' trigger for uptime cost optimization
+    maxReplicaCount: "{{.Values.deployment.replicas}}" # must be a string
+    triggers:
+      - type: cron
+        metadata:
+          timezone: Europe/Rome
+          start: 0 8 * * 1-5
+          end: 0 20 * * 1-5
+          desiredReplicas: "{{.Values.deployment.replicas}}" # must be a string

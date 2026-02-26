@@ -1,0 +1,15 @@
+name: probing-be-eservice-mock
+techStack: nodejs
+
+service:
+  create: true
+  containerPort: 8080
+  portName: http
+
+deployment:
+  image:
+    repositoryPrefix: "ghcr.io"
+    repositoryName: "pagopa/interop-be-probing-eservice-mock"
+  env:
+    AWS_KMS_PUBLIC_KEY: |-
+      -----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAyd5SOzh/oWbb02EUoc1S\nhjI6AIm2WKrNp6ZksurIaNY3k9FN0M8SHjKEcXd/BLf3mTzZKn4w+bfY97SsT62l\nS/kbHy3tgpJBYBEaW67yumvXeRLerD/ePQVAh+HQyHcALEUDv0+Ob6mqL9K3zc/V\nPGgIZp9tWpHH3ZqbkA0Rr/bhTGTzQsaOoQ8g+q+kNlMgOV41TNOXjaJMcFjFBd5z\nDQrTCXlxAV2sV9lY8EMQcT+uIHU/wwH2iCbqVRJm4ar1H/stwWr1kfwE0VarPIti\nDpzrUFv9cH/MI6pvA6hT/Kpt/N28eAwgI+nlgqtME8PmAoTIvkCQ3UwzpgzVhOD+\nGQIDAQAB\n-----END PUBLIC KEY-----

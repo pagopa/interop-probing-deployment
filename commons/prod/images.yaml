@@ -1,0 +1,23 @@
+images:
+  microservices:
+    api:
+      tag: "1.0.0-RC2"
+    statistics-api:
+      tag: "1.0.0-RC2"
+    eservice-event-consumer:
+      tag: "1.0.0-RC2"
+    tenant-event-consumer:
+      tag: "1.0.0-RC2"
+    eservice-operations:
+      tag: "1.0.0-RC2"
+    scheduler:
+      tag: "1.0.0-RC2"
+    caller:
+      tag: "1.0.0-RC2"
+    response-updater:
+      tag: "1.0.0-RC2"
+    telemetry-writer:
+      tag: "1.0.0-RC2"
+    eservice-mock:
+      tag: "1.0.0-RC2"
+  jobs:
