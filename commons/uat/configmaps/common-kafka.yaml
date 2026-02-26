@@ -6,4 +6,4 @@ metadata:
 data:
   KAFKA_BROKERS: "b-2.iam.interopplatformevents.9r48hf.c4.kafka.eu-south-1.amazonaws.com:14002,b-1.iam.interopplatformevents.9r48hf.c4.kafka.eu-south-1.amazonaws.com:14001,b-3.iam.interopplatformevents.9r48hf.c4.kafka.eu-south-1.amazonaws.com:14003"
   CATALOG_TOPIC: "outbound.qa_catalog.events"
-  TENANT_TOPIC: "outbound.qa_tenant.events"
+  TENANT_TOPIC: "outbound.test_tenant.events"
