@@ -19,5 +19,5 @@ images:
     telemetry-writer:
       tag: "1.0.0-RC2"
     eservice-mock:
-      tag: "1.0.0-RC2"
+      tag: "develop"
   jobs:
