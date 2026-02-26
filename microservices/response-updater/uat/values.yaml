@@ -6,5 +6,5 @@ serviceAccount:
 configmap:
   INTEROP_PROBING_RESPONSE_UPDATER_NAME: "pagopa-interop-probing-response-updater"
   API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
-  SQS_ENDPOINT_POLL_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/774300547186/probing-response-received-{{.Values.local.env}}"
+  SQS_ENDPOINT_POLL_RESULT_QUEUE: "https://sqs.eu-south-1.amazonaws.com/010158505074/probing-response-received-{{.Values.local.env}}"
   SQS_LONG_POLL_WAIT_TIME_SECONDS: "3"
