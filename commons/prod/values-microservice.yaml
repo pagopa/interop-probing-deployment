@@ -20,7 +20,7 @@ deployment:
       memory: "2Gi"
 
 local:
-  awsAccountId: "774300547186"
+  awsAccountId: "861877745473"
   env: "prod"
 
 autoscaling:
