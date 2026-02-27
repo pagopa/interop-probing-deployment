@@ -18,6 +18,4 @@ images:
       tag: "1.0.0-RC3"
     telemetry-writer:
       tag: "1.0.0-RC3"
-    eservice-mock:
-      tag: "develop"
   jobs:
