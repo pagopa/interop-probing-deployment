@@ -4,7 +4,7 @@ metadata:
   name: common-probing-store
   namespace: uat
 data:
-  DB_HOST: "probing-store-dev.cluster-cftz93lgexam.eu-south-1.rds.amazonaws.com"
+  DB_HOST: "probing-store-uat.cluster-cpefx3on6rcn.eu-south-1.rds.amazonaws.com"
   DB_PORT: "5432"
   DB_NAME: "interop_probing_operational_uat"
   DB_USE_SSL: "true"
