@@ -1,0 +1,109 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flyway-probing-store
+  namespace: uat
+data:
+  V1.0__probing_Schema.sql: |-
+    CREATE SCHEMA IF NOT EXISTS "${NAMESPACE}_probing";
+
+    CREATE EXTENSION IF NOT EXISTS pg_trgm;
+
+    GRANT USAGE ON SCHEMA "${NAMESPACE}_probing" TO
+      "${NAMESPACE}_eservice_operations_user";
+
+    CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".tenants (
+      id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      tenant_id UUID NOT NULL UNIQUE,
+      tenant_name VARCHAR(2048)
+    );
+
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".tenants TO "${NAMESPACE}_eservice_operations_user";
+
+    CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservices (
+      id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+      eservice_id UUID NOT NULL,
+      version_id UUID NOT NULL,
+      eservice_name VARCHAR(255) NOT NULL,
+      producer_name VARCHAR(2048) NOT NULL,
+      eservice_technology VARCHAR(255) NOT NULL,
+      base_path VARCHAR(2048) [] NOT NULL,
+      audience VARCHAR(2048) [] NOT NULL,
+      state VARCHAR(255) NOT NULL,
+      version_number INTEGER NOT NULL,
+      lock_version INTEGER NOT NULL,
+      probing_enabled BOOLEAN NOT NULL,
+      polling_start_time TIME WITH TIME ZONE NOT NULL,
+      polling_end_time TIME WITH TIME ZONE NOT NULL,
+      polling_frequency INTEGER DEFAULT 5 NOT NULL,
+      CONSTRAINT eservices_eservice_version_unique UNIQUE (eservice_id, version_id)
+    );
+
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservices TO "${NAMESPACE}_eservice_operations_user";
+
+    CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".eservice_probing_requests (
+      eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
+      last_request TIMESTAMP WITH TIME ZONE NOT NULL
+    );
+
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_requests TO "${NAMESPACE}_eservice_operations_user";
+
+    CREATE TABLE IF NOT EXISTS  "${NAMESPACE}_probing".eservice_probing_responses (
+      eservices_record_id BIGINT PRIMARY KEY REFERENCES "${NAMESPACE}_probing".eservices(id) ON DELETE CASCADE,
+      response_received TIMESTAMP WITH TIME ZONE NOT NULL,
+      status VARCHAR(2) NOT NULL
+    );
+
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "${NAMESPACE}_eservice_operations_user";
+
+    CREATE
+    OR REPLACE VIEW "${NAMESPACE}_probing".eservice_view AS
+    SELECT
+        e.id,
+        e.eservice_id,
+        e.eservice_name,
+        e.producer_name,
+        e.version_id,
+        e.state,
+        epr.status,
+        e.probing_enabled,
+        e.version_number,
+        epr.response_received,
+        epreq.last_request,
+        e.polling_frequency,
+        e.polling_start_time,
+        e.polling_end_time,
+        e.base_path,
+        e.eservice_technology,
+        e.audience
+    FROM
+        "${NAMESPACE}_probing".eservices e
+        LEFT JOIN "${NAMESPACE}_probing".eservice_probing_responses epr ON epr.eservices_record_id = e.id
+        LEFT JOIN "${NAMESPACE}_probing".eservice_probing_requests epreq ON epreq.eservices_record_id = e.id;
+
+    CREATE INDEX IF NOT EXISTS eservices_producer_upper_trgm_idx ON "${NAMESPACE}_probing".eservices USING GIN ((UPPER(producer_name)) gin_trgm_ops);
+
+    CREATE INDEX IF NOT EXISTS eservices_name_upper_trgm_idx ON "${NAMESPACE}_probing".eservices USING GIN ((UPPER(eservice_name)) gin_trgm_ops);
+    CREATE INDEX IF NOT EXISTS eservices_state_idx ON "${NAMESPACE}_probing".eservices (state);
+
+    CREATE INDEX IF NOT EXISTS eservices_polling_ready_idx ON "${NAMESPACE}_probing".eservices (
+        state,
+        probing_enabled,
+        polling_start_time,
+        polling_end_time
+    )
+    WHERE
+        state = 'ACTIVE'
+        AND probing_enabled = true;
+
+    CREATE INDEX IF NOT EXISTS probing_requests_last_request_idx ON "${NAMESPACE}_probing".eservice_probing_requests (last_request);
+
+    CREATE INDEX IF NOT EXISTS probing_responses_received_idx ON "${NAMESPACE}_probing".eservice_probing_responses (response_received);
+
+    CREATE INDEX IF NOT EXISTS eservices_name_numeric_idx ON "${NAMESPACE}_probing".eservices ((split_part(eservice_name, ' ', 2) :: int));
+
+  V1.1__grant_select_on_view_to_eservice_operations_user.sql: |-
+    GRANT SELECT ON "${NAMESPACE}_probing".eservice_view TO "${NAMESPACE}_eservice_operations_user";
+
+  V1.2__drop_numeric_eservice_name_index.sql: |-
+    DROP INDEX IF EXISTS "${NAMESPACE}_probing".eservices_name_numeric_idx;

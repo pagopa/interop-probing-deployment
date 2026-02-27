@@ -1,0 +1,18 @@
+name: "probing-be-tenant-event-consumer"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-tenant-event-consumer-{{.Values.local.env}}"
+
+configmap:
+  APPLICATION_NAME: "pagopa-interop-probing-tenant-event-consumer"
+  API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
+  KAFKA_GROUP_ID: "probing-{{.Values.namespace}}-tenant-event-consumer"
+
+deployment:
+  replicas: 0
+  envFromConfigmaps:
+    KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
+    KAFKA_TOPIC: "common-kafka.TENANT_TOPIC"
+  envFromSecrets:
+  envFromFieldRef:
+    KAFKA_CLIENT_ID: "metadata.name"

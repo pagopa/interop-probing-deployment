@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-probing-analytics
+  namespace: prod
+data:
+  INFLUX_INSTANCE_ENDPOINT: "https://iyyprotlvq-p2jepkxlcngatz.timestream-influxdb.eu-south-1.on.aws:8086"
+  INFLUX_INSTANCE_ORG: "probing-analytics-prod"
+  INFLUX_INSTANCE_BUCKET: "probing-telemetry-prod"
+  INFLUX_PRECISION: "ms"
