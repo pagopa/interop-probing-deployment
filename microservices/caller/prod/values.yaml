@@ -13,3 +13,4 @@ configmap:
   JWT_PAYLOAD_ISSUER: "probing-caller-issuer"
   JWT_PAYLOAD_SUBJECT: "probing-caller-subject"
   JWT_PAYLOAD_KID_KMS: "698ff3eb-818f-4125-845c-198ef0bc5e86"
+  HTTP_REQUEST_TIMEOUT_MS: "5000"
