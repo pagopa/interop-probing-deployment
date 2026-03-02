@@ -1,0 +1,44 @@
+name: "probing-be-statistics-api"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-statistics-api-{{.Values.local.env}}"
+
+service:
+  create: true
+  portName: http
+  containerPort: 8080
+  targetGroupArn: "arn:aws:elasticloadbalancing:eu-south-1:010158505074:targetgroup/uat-statistics-api/c8e3505279e371d7"
+  targetType: "ip"
+  ipAddressType: "ipv4"
+
+configmap:
+  GRAPH_PERFORMANCE_TOLERANCE: "2"
+  GRAPH_FAILURE_TOLERANCE: "4"
+  GRAPH_MAX_MONTHS: "3"
+  CORS_ORIGIN_ALLOWED: "*"
+  INTEROP_PROBING_STATISTICS_APP_NAME: "statistics-api"
+
+deployment:
+  env:
+    HOST: "0.0.0.0"
+    PORT: "8080"
+  envFromConfigmaps:
+    INFLUX_DB_URL: "common-probing-analytics.INFLUX_INSTANCE_ENDPOINT"
+    INFLUX_ORG: "common-probing-analytics.INFLUX_INSTANCE_ORG"
+    INFLUX_BUCKET: "common-probing-analytics.INFLUX_INSTANCE_BUCKET"
+    INFLUX_PRECISION: "common-probing-analytics.INFLUX_PRECISION"
+  envFromSecrets:
+    INFLUX_TOKEN: "uat-probing-analytics-db-statistics-api-user.token"
+
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
+  readinessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5

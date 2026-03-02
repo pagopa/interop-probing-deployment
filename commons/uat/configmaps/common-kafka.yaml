@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: common-kafka
+  namespace: uat
+data:
+  KAFKA_BROKERS: "b-1.iam.interopplatformevents.9r48hf.c3.kafka.eu-south-1.amazonaws.com:14001,b-2.iam.interopplatformevents.9r48hf.c3.kafka.eu-south-1.amazonaws.com:14002,b-3.iam.interopplatformevents.9r48hf.c3.kafka.eu-south-1.amazonaws.com:14003"
+  CATALOG_TOPIC: "outbound.test_catalog.events"
+  TENANT_TOPIC: "outbound.test_tenant.events"

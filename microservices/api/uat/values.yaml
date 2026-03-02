@@ -1,0 +1,38 @@
+name: "probing-be-api"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-api-{{.Values.local.env}}"
+
+service:
+  create: true
+  portName: http
+  containerPort: 8080
+  targetGroupArn: "arn:aws:elasticloadbalancing:eu-south-1:010158505074:targetgroup/uat-api/c1f293e400d02738"
+  targetType: "ip"
+  ipAddressType: "ipv4"
+
+configmap:
+  INTEROP_PROBING_API_APP_NAME: "pagopa-interop-probing-api"
+  API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
+  TOLERANCE_MULTIPLIER_IN_MINUTES: "3"
+  CORS_ORIGIN_ALLOWED: "*"
+
+deployment:
+  env:
+    HOST: "0.0.0.0"
+    PORT: "8080"
+  envFromConfigmaps:
+  envFromSecrets:
+
+  livenessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
+  readinessProbe:
+    httpGet:
+      path: /status
+      port: http
+    initialDelaySeconds: 15
+    periodSeconds: 5
