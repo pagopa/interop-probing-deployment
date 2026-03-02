@@ -1,0 +1,17 @@
+name: "probing-be-eservice-event-consumer"
+
+serviceAccount:
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-eservice-event-consumer-{{.Values.local.env}}"
+
+configmap:
+  APPLICATION_NAME: "pagopa-interop-probing-eservice-event-consumer"
+  API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
+  KAFKA_GROUP_ID: "probing-{{.Values.namespace}}-eservice-event-consumer"
+
+deployment:
+  envFromConfigmaps:
+    KAFKA_BROKERS: "common-kafka.KAFKA_BROKERS"
+    KAFKA_TOPIC: "common-kafka.CATALOG_TOPIC"
+  envFromSecrets:
+  envFromFieldRef:
+    KAFKA_CLIENT_ID: "metadata.name"
