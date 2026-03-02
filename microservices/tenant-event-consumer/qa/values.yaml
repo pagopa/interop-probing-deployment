@@ -7,6 +7,7 @@ configmap:
   APPLICATION_NAME: "pagopa-interop-probing-tenant-event-consumer"
   API_OPERATIONS_BASEURL: "http://probing-be-eservice-operations.{{.Values.namespace}}:8080"
   KAFKA_GROUP_ID: "probing-{{.Values.namespace}}-tenant-event-consumer"
+  TOPIC_STARTING_OFFSET: "earliest"
 
 deployment:
   replicas: 0
