@@ -16,4 +16,5 @@ deployment:
     KAFKA_TOPIC: "common-kafka.CATALOG_TOPIC"
   envFromSecrets:
   envFromFieldRef:
+    AWS_ROLE_SESSION_NAME: "metadata.name"
     KAFKA_CLIENT_ID: "metadata.name"
