@@ -12,6 +12,7 @@ configmap:
   INTEROP_PROBING_OPERATIONS_APP_NAME: "pagopa-interop-probing-eservice-operations"
   TOLERANCE_MULTIPLIER_IN_MINUTES: "3"
   POLLING_FREQUENCY_THRESHOLD: "3"
+  KEEP_ALIVE_TIMEOUT_MILLIS: "5000"
 
 deployment:
   flywayInitContainer:
