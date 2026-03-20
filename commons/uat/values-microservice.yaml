@@ -3,7 +3,7 @@ techStack: "nodejs"
 
 deployment:
   enableRolloutAnnotations: true
-  replicas: 1
+  replicas: 0
   env:
     LOG_LEVEL: "info"
   image:
