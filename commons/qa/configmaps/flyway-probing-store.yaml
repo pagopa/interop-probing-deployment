@@ -152,3 +152,4 @@ data:
     
     CREATE INDEX IF NOT EXISTS eservices_producer_id_idx
       ON "${NAMESPACE}_probing".eservices (producer_id);
+      
