@@ -107,3 +107,48 @@ data:
   
   V1.2__drop_numeric_eservice_name_index.sql: |-
     DROP INDEX IF EXISTS "${NAMESPACE}_probing".eservices_name_numeric_idx;
+
+  V1.3__tenants_allow_list_and_producer_id.sql: |-
+    CREATE TABLE IF NOT EXISTS "${NAMESPACE}_probing".tenants_allow_list (
+      tenant_id UUID PRIMARY KEY
+    );
+
+    GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE
+    ON TABLE "${NAMESPACE}_probing".tenants_allow_list
+    TO "${NAMESPACE}_eservice_operations_user";
+    
+    ALTER TABLE "${NAMESPACE}_probing".eservices
+      ADD COLUMN IF NOT EXISTS producer_id UUID;
+    
+    CREATE OR REPLACE VIEW "${NAMESPACE}_probing".eservice_view AS
+    SELECT
+      e.id,
+      e.eservice_id,
+      e.eservice_name,
+      e.producer_id,
+      e.producer_name,
+      e.version_id,
+      e.state,
+      epr.status,
+      e.probing_enabled,
+      e.version_number,
+      epr.response_received,
+      epreq.last_request,
+      e.polling_frequency,
+      e.polling_start_time,
+      e.polling_end_time,
+      e.base_path,
+      e.eservice_technology,
+      e.audience
+    FROM "${NAMESPACE}_probing".eservices e
+    LEFT JOIN "${NAMESPACE}_probing".eservice_probing_responses epr
+      ON epr.eservices_record_id = e.id
+    LEFT JOIN "${NAMESPACE}_probing".eservice_probing_requests epreq
+      ON epreq.eservices_record_id = e.id;
+    
+    GRANT SELECT
+    ON "${NAMESPACE}_probing".eservice_view
+    TO "${NAMESPACE}_eservice_operations_user";
+    
+    CREATE INDEX IF NOT EXISTS eservices_producer_id_idx
+      ON "${NAMESPACE}_probing".eservices (producer_id);
