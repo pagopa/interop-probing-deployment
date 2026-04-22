@@ -120,7 +120,8 @@ data:
     ALTER TABLE "${NAMESPACE}_probing".eservices
       ADD COLUMN IF NOT EXISTS producer_id UUID;
     
-    CREATE OR REPLACE VIEW "${NAMESPACE}_probing".eservice_view AS
+    DROP VIEW "${NAMESPACE}_probing".eservice_view;
+    CREATE VIEW "${NAMESPACE}_probing".eservice_view AS
     SELECT
       e.id,
       e.eservice_id,
