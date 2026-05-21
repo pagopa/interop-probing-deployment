@@ -18,4 +18,4 @@ cronjob:
 
 local:
   awsAccountId: "010158505074"
-  env: "qa"
+  env: "uat"
