@@ -1,7 +1,7 @@
 name: "probing-be-tenant-event-consumer"
 
 serviceAccount:
-  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-tenant-event-consumer-att"
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-tenant-event-consumer-{{.Values.local.env}}"
 
 configmap:
   APPLICATION_NAME: "pagopa-interop-probing-tenant-event-consumer"
