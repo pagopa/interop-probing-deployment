@@ -7,7 +7,7 @@ service:
   create: true
   portName: http
   containerPort: 8080
-  targetGroupArn: "arn:aws:elasticloadbalancing:eu-south-1:774300547186:targetgroup/att-statistics-api/4cfb310670e1cf72"
+  targetGroupArn: "arn:aws:elasticloadbalancing:eu-south-1:010158505074:targetgroup/att-statistics-api/b8ea80dd508ce7ae"
   targetType: "ip"
   ipAddressType: "ipv4"
 
