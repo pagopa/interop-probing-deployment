@@ -1,7 +1,7 @@
 name: "probing-be-telemetry-writer"
 
 serviceAccount:
-  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-telemetry-writer-att"
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-telemetry-writer-{{.Values.local.env}}"
 
 configmap:
   INTEROP_PROBING_TELEMETRY_WRITER_NAME: "pagopa-interop-probing-telemetry-writer"
