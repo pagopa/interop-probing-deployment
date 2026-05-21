@@ -1,7 +1,7 @@
 name: "probing-be-statistics-api"
 
 serviceAccount:
-  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-statistics-api-att"
+  roleArn: "arn:aws:iam::{{.Values.local.awsAccountId}}:role/probing-be-statistics-api-{{.Values.local.env}}"
 
 service:
   create: true
