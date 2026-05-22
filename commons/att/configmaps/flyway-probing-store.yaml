@@ -57,7 +57,7 @@ data:
 
     GRANT SELECT, INSERT, UPDATE, DELETE, TRUNCATE ON TABLE "${NAMESPACE}_probing".eservice_probing_responses TO "${NAMESPACE}_eservice_operations_user";
 
-    DROP VIEW "${NAMESPACE}_probing".eservice_view;
+    DROP VIEW IF EXISTS "${NAMESPACE}_probing".eservice_view;
     CREATE VIEW "${NAMESPACE}_probing".eservice_view AS
       SELECT
         e.id,
