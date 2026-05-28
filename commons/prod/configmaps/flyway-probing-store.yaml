@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: flyway-probing-store
-  namespace: uat
+  namespace: prod
 data:
   V1.0__probing_Schema.sql: |-
     CREATE SCHEMA IF NOT EXISTS "${NAMESPACE}_probing";
