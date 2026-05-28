@@ -17,5 +17,5 @@ cronjob:
       memory: "2Gi"
 
 local:
-  awsAccountId: "010158505074"
+  awsAccountId: "861877745473"
   env: "prod"
