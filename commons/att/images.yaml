@@ -1,21 +1,21 @@
 images:
   microservices:
     api:
-      tag: "1.0.0"
+      tag: "1.0.1"
     statistics-api:
-      tag: "1.0.0"
+      tag: "1.0.1"
     eservice-event-consumer:
-      tag: "1.0.0"
+      tag: "1.0.1"
     tenant-event-consumer:
-      tag: "1.0.0"
+      tag: "1.0.1"
     eservice-operations:
-      tag: "1.0.0"
+      tag: "1.0.1"
     scheduler:
-      tag: "1.0.0"
+      tag: "1.0.1"
     caller:
-      tag: "1.0.0"
+      tag: "1.0.1"
     response-updater:
-      tag: "1.0.0"
+      tag: "1.0.1"
     telemetry-writer:
-      tag: "1.0.0"
+      tag: "1.0.1"
   jobs:
