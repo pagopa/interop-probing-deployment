@@ -113,6 +113,8 @@ jobs:
 
       - name: Extract deployment reusable workflow used tag
         id: extract-deploy-wf-tag
+        env:
+          INFRA_COMMONS_TAG: ${{ vars.INFRA_COMMONS_TAG }}
         run: |
           set -euo pipefail
 
@@ -135,15 +137,17 @@ jobs:
           echo "fullref=$fullref"
           echo "tag=$tag"
 
-          if [[ -n "${{ vars.INFRA_COMMONS_TAG }}" ]]; then
-            final_tag="${{ vars.INFRA_COMMONS_TAG }}"
+          if [[ -n "$INFRA_COMMONS_TAG" ]]; then
+            final_tag="$INFRA_COMMONS_TAG"
           else
             final_tag="$tag"
           fi
           echo "infra_commons_tag_computed=$final_tag" >> $GITHUB_OUTPUT
 
       - name: Show extracted tag
-        run: echo "infra_commons_tag_computed = ${{ steps.extract-deploy-wf-tag.outputs.infra_commons_tag_computed }}"
+        env:
+          INFRA_COMMONS_TAG_COMPUTED: ${{ steps.extract-deploy-wf-tag.outputs.infra_commons_tag_computed }}
+        run: echo "infra_commons_tag_computed = $INFRA_COMMONS_TAG_COMPUTED"
 
   create_runner:
     name: Create Self-Hosted Runner
@@ -220,10 +224,12 @@ jobs:
 
     - name: Get Release Version
       id: get_release_version
+      env:
+        ENVIRONMENT: ${{ inputs.environment }}
       run: |
         set -euo pipefail
 
-        RELEASE_VERSION=$(yq e '.packages."probing-frontend"' packages/${{ inputs.environment }}/packages.yaml)
+        RELEASE_VERSION=$(yq e '.packages."probing-frontend"' packages/"$ENVIRONMENT"/packages.yaml)
         echo "release_version=$RELEASE_VERSION" >> $GITHUB_OUTPUT
 
     - name: Download Release
@@ -241,18 +247,23 @@ jobs:
         unzip probing-frontend.zip -d probing-frontend
 
     - name: Sync files to S3
+      env:
+        AWS_S3_BUCKET: ${{ vars.AWS_S3_BUCKET }}
       run: |
         set -euo pipefail
 
-        aws s3 sync probing-frontend/ s3://${{ vars.AWS_S3_BUCKET }}/ --delete
+        aws s3 sync probing-frontend/ s3://"$AWS_S3_BUCKET"/ --delete
 
     - name: Invalidate CloudFront Cache
+      env:
+        CLOUDFRONT_DISTRIBUTION_ID: ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}
+        CLOUDFRONT_INVALIDATION_PATHS: ${{ vars.CLOUDFRONT_INVALIDATION_PATHS }}
       run: |
         set -euo pipefail
 
         aws cloudfront create-invalidation \
-          --distribution-id ${{ vars.CLOUDFRONT_DISTRIBUTION_ID }} \
-          --paths "${{ vars.CLOUDFRONT_INVALIDATION_PATHS }}"  #space separated
+          --distribution-id "$CLOUDFRONT_DISTRIBUTION_ID" \
+          --paths "$CLOUDFRONT_INVALIDATION_PATHS"  #space separated
 
   delete_runner:
     name: Delete Self-Hosted Runner
